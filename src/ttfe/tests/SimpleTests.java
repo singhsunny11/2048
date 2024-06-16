@@ -41,11 +41,6 @@ public class SimpleTests {
 	}
 
 	@Test
-	public void testConstructor(){
-		assertEquals("Initial no. of pieces should be 2",2,game.getNumPieces());	
-	}
-
-	@Test
 	public void testConstructorDimensions(){
 		assertThrows(IllegalArgumentException.class,()->{
 			TTFEFactory.createSimulator(1,1, new Random(0));
@@ -59,16 +54,7 @@ public class SimpleTests {
 		});
 	}
 
-	@Test
-	public void testaddPiece(){
-		for(int i=0;i<16;i++){
-			game.addPiece();
-		}
-		assertThrows("Exception excepted when using add piece on full board",IllegalStateException.class,()->{
-			game.addPiece();
-		});
-	}
-
+	
 	@Test
 	public void testgetBoardWidth(){
 		assertTrue("The board width is not 4",4==game.getBoardWidth());
@@ -80,13 +66,39 @@ public class SimpleTests {
 	}
 
 	@Test
-	public void testgetNumMoves(){
-		game.performMove(MoveDirection.EAST);
-		game.performMove(MoveDirection.NORTH);
-		game.performMove(MoveDirection.SOUTH);
-		game.performMove(MoveDirection.WEST);
+	public void testaddPiece(){
+		for(int i=0;i<16;i++){
+			game.addPiece();
+		}
+		assertThrows("Exception excepted when using add piece on full board",IllegalStateException.class,()->{
+			game.addPiece();
+		});
+	}
 
-		assertEquals("Number of moves is wrong",4==game.getNumMoves());
+
+	@Test
+	public void testgetNumMoves(){
+		assertEquals("The initial number of moves should be 0",0,game.getNumMoves());
+		boolean check = game.performMove(MoveDirection.EAST);
+		if(check){
+			assertTrue("Incorrect num of moves",1==game.getNumMoves());
+		}
+		else{
+			assertTrue("Incorrect num of moves",0==game.getNumMoves());
+        }
+    }
+
+	@Test
+	public void testgetNumPieces(){
+		assertEquals("Initial no. of pieces should be 2",2,game.getNumPieces());
+		game.addPiece();
+		assertEquals("no. of pieces incorrect",3,game.getNumPieces());
+	}
+
+	@Test
+	public void testgetPoints(){
+		
+		
 	}
 
 
