@@ -10,6 +10,7 @@ import java.util.Random;
 import org.junit.Before;
 import org.junit.Test;
 
+import ttfe.MoveDirection;
 import ttfe.SimulatorInterface;
 import ttfe.TTFEFactory;
 
@@ -60,11 +61,33 @@ public class SimpleTests {
 
 	@Test
 	public void testaddPiece(){
+		for(int i=0;i<16;i++){
+			game.addPiece();
+		}
 		assertThrows("Exception excepted when using add piece on full board",IllegalStateException.class,()->{
 			game.addPiece();
 		});
 	}
-	
+
+	@Test
+	public void testgetBoardWidth(){
+		assertTrue("The board width is not 4",4==game.getBoardWidth());
+    }
+
+	@Test
+	public void testgetBoardHeight(){
+		assertTrue("The board width is not 4",4==game.getBoardHeight());
+	}
+
+	@Test
+	public void testgetNumMoves(){
+		game.performMove(MoveDirection.EAST);
+		game.performMove(MoveDirection.NORTH);
+		game.performMove(MoveDirection.SOUTH);
+		game.performMove(MoveDirection.WEST);
+
+		assertEquals("Number of moves is wrong",4==game.getNumMoves());
+	}
 
 
 }
