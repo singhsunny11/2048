@@ -2,6 +2,8 @@ package ttfe.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertThrows;
+
 
 import java.util.Random;
 
@@ -36,5 +38,33 @@ public class SimpleTests {
 		assertTrue("The initial game board did not have correct height",
 				4 == game.getBoardHeight());
 	}
+
+	@Test
+	public void testConstructor(){
+		assertEquals("Initial no. of pieces should be 2",2,game.getNumPieces());	
+	}
+
+	@Test
+	public void testConstructorDimensions(){
+		assertThrows(IllegalArgumentException.class,()->{
+			TTFEFactory.createSimulator(1,1, new Random(0));
+		});
+	}
+
+	@Test
+	public void testConstructorRandomNumberId(){
+		assertThrows(IllegalArgumentException.class,()->{
+			TTFEFactory.createSimulator(4,4, null);
+		});
+	}
+
+	@Test
+	public void testaddPiece(){
+		assertThrows("Exception excepted when using add piece on full board",IllegalStateException.class,()->{
+			game.addPiece();
+		});
+	}
+	
+
 
 }
