@@ -68,10 +68,12 @@ public class SimpleTests {
 
 	@Test
 	public void testaddPiece(){
-		for(int i=0;i<16;i++){
-			game.addPiece();
-		}
-		assertThrows("Exception excepted when using add piece on full board",IllegalStateException.class,()->{
+			for(int i=0;i<4;i++){
+				for(int j=0;j<4;j++){
+					game.setPieceAt(i, j, 2);
+				}
+			}
+		assertThrows("Exception expected when using add piece on full board",IllegalStateException.class,()->{
 			game.addPiece();
 		});
 	}
@@ -161,5 +163,35 @@ public class SimpleTests {
 
 	}
 
+	@Test
+	public void testperformMove1(){
+		assertThrows("Move direction cannot be null",IllegalArgumentException.class,()->{
+			game.performMove(null);
+		});
+	}
+
+	@Test
+	public void testperformMove2(){
+		for(int i=0;i<4;i++){
+			for(int j=0;j<4;j++){
+				game.setPieceAt(i, j, 0);
+			}
+		}
+		game.setPieceAt(0, 0, 2);
+		game.setPieceAt(0, 3, 2);
+        assertFalse("move cannot be performed",game.performMove(MoveDirection.WEST));
+		
+		game.setPieceAt(0, 0, 0);
+		game.setPieceAt(3, 3, 2);
+		assertFalse("move cannot be performed",game.performMove(MoveDirection.SOUTH));
+
+		game.setPieceAt(0, 3, 0);
+		game.setPieceAt(3, 0, 2);
+		assertFalse("move cannot be performed",game.performMove(MoveDirection.EAST));
+
+		game.setPieceAt(3, 3, 0);
+		game.setPieceAt(0, 0, 2);
+		assertFalse("move cannot be performed",game.performMove(MoveDirection.NORTH));
+	}
 
 }
