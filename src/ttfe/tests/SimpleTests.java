@@ -105,16 +105,15 @@ public class SimpleTests {
 				game.setPieceAt(i, j, 0);
 			}
 		}
-
-		game.setPieceAt(0, 0, 2);
-		game.setPieceAt(1, 0, 2);
+        game.setPieceAt(0, 0, 2);
+		game.setPieceAt(1,0,2);
 		game.performMove(MoveDirection.WEST);
-		assertEquals("incorrect points calculated",4==game.getPoints());
+		assertTrue("incorrect points calculated",4==game.getPoints());
 		for(int i=1;i<4;i++){
 			game.setPieceAt(i, 0, 4);
 		}
 		game.performMove(MoveDirection.EAST);
-		assertEquals("incorrect points calculated",20==game.getPoints());
+		assertTrue("incorrect points calculated",20==game.getPoints());
 		
 	}
 
