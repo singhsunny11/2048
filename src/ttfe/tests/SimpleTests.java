@@ -232,6 +232,46 @@ public class SimpleTests {
 		assertTrue("move is possible",game.isMovePossible(MoveDirection.EAST));
 		assertTrue("move is possible",game.isMovePossible(MoveDirection.SOUTH));
 		assertTrue("move is possible",game.isMovePossible(MoveDirection.WEST));
+
+
+		int figedge[][]={
+			{2,2,4,8},
+			{16,16,32,64},
+			{128,128,256,512},
+			{1024,1024,2048,4096}
+		};
+		
+		for(int i=0;i<4;i++){
+			for(int j=0;j<4;j++){
+				game.setPieceAt(i, j, figedge[i][j]);
+			}
+		}
+
+		assertTrue("move possible",game.isMovePossible());
+		assertTrue("move possible in east",game.isMovePossible(MoveDirection.EAST));
+		assertTrue("move possible in west",game.isMovePossible(MoveDirection.WEST));
+		assertFalse("no move possible in north",game.isMovePossible(MoveDirection.NORTH));
+		assertFalse("no move possible in south",game.isMovePossible(MoveDirection.SOUTH));
+
+
+		int figedge2[][]={
+				{2,4,8,16},
+				{2,4,8,16},
+				{32,64,128,256},
+				{32,64,128,256}
+		};
+		
+		for(int i=0;i<4;i++){
+			for(int j=0;j<4;j++){
+				game.setPieceAt(i, j, figedge2[i][j]);
+			}
+		}
+
+		assertTrue("move possible",game.isMovePossible());
+		assertFalse("no move possible in east",game.isMovePossible(MoveDirection.EAST));
+		assertFalse("no move possible in west",game.isMovePossible(MoveDirection.WEST));
+		assertTrue("move possible in north",game.isMovePossible(MoveDirection.NORTH));
+		assertTrue("move possible in south",game.isMovePossible(MoveDirection.SOUTH));
 	}
 
 	@Test
