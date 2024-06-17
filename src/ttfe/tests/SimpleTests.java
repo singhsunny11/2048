@@ -150,15 +150,88 @@ public class SimpleTests {
 	}
 
 	@Test
-	public void testisMovePossible2(){
+	public void testisMovePossibleFullBoard(){
 		int fullboard[][]={
 			{4,2,8,2},
 			{2,4,32,4},
 			{8,16,2,128},
 			{16,32,128,4}
 		};
+    for(int i=0;i<4;i++){
+		for(int j=0;j<4;j++){
+			game.setPieceAt(i, j, fullboard[i][j]);
+		}
+    }
+	assertFalse("no move possible in east",game.isMovePossible(MoveDirection.EAST));
+	assertFalse("no move possible in west",game.isMovePossible(MoveDirection.WEST));
+	assertFalse("no move possible in north",game.isMovePossible(MoveDirection.NORTH));
+	assertFalse("no move possible in south",game.isMovePossible(MoveDirection.SOUTH));	
+	assertFalse("no move is possible",game.isMovePossible());
+	}
 
+	@Test
+	public void testisMovePossible(){
+		for(int i=0;i<4;i++){
+			for(int j=0;j<4;j++){
+				game.setPieceAt(i, j, 0);
+			}
+		}
+		game.setPieceAt(0, 0, 2);
+		game.setPieceAt(3, 0, 2);
+		assertTrue("move is possible",game.isMovePossible());
+		assertTrue("move is possible in east",game.isMovePossible(MoveDirection.EAST));
+		assertTrue("move is possible in south",game.isMovePossible(MoveDirection.SOUTH));
+		assertTrue("move is possible in west",game.isMovePossible(MoveDirection.WEST));
+		assertFalse("move is possible in north",game.isMovePossible(MoveDirection.NORTH));
+		if (game.performMove(MoveDirection.SOUTH))
+		{
+			assertTrue("move is possible",game.isMovePossible(MoveDirection.NORTH));
+		}
+	}
+
+	@Test 
+	public void testisMovePossibleFig2(){
+		int fig[][]={
+			{2,4,0,0},
+			{4,8,0,0},
+			{16,32,4,2},
+			{2,2048,512,8}
+		};
+
+		for(int i=0;i<4;i++){
+			for(int j=0;j<4;j++){
+				game.setPieceAt(i, j, fig[i][j]);
+			}
+		}
+
+		assertTrue("move is possible",game.isMovePossible());
+		assertTrue("move is possible",game.isMovePossible(MoveDirection.EAST));
+		assertTrue("move is possible",game.isMovePossible(MoveDirection.NORTH));
+		assertFalse("move is possible",game.isMovePossible(MoveDirection.WEST));
+		assertFalse("move is possible",game.isMovePossible(MoveDirection.SOUTH));	
+	}
+
+	@Test
+	public void testisMovePossibleEdgeCase(){
 		
+		int fig[][]={
+			{2,2,2,2},
+			{2,2,2,2},
+			{2,2,2,2},
+			{2,2,2,2}
+		};
+
+		for(int i=0;i<4;i++){
+			for(int j=0;j<4;j++){
+				game.setPieceAt(i, j, fig[i][j]);
+			}
+		}
+
+		assertTrue("move possible as can merge",game.isMovePossible());
+		assertTrue("move is possible",game.isMovePossible(MoveDirection.NORTH));
+		assertTrue("move is possible",game.isMovePossible(MoveDirection.EAST));
+		assertTrue("move is possible",game.isMovePossible(MoveDirection.SOUTH));
+		assertTrue("move is possible",game.isMovePossible(MoveDirection.WEST));
 	}
 
 	@Test
@@ -199,10 +272,10 @@ public class SimpleTests {
 		}
 		game.setPieceAt(0, 0, 2);
 		game.setPieceAt(3, 0, 2);
-		assertTrue("move is possible in east",game.isMovePossible());
-		assertTrue("move is possible in south",game.isMovePossible());
-		assertTrue("move is possible in west",game.isMovePossible());
-		assertTrue("move is possible in north",game.isMovePossible());
+		assertTrue("move is possible in east",game.performMove(MoveDirection.EAST));
+		assertTrue("move is possible in south",game.performMove(MoveDirection.SOUTH));
+		assertTrue("move is possible in west",game.performMove(MoveDirection.WEST));
+		assertTrue("move is possible in north",game.performMove(MoveDirection.NORTH));
 
 	}
 
