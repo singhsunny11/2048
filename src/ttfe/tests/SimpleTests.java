@@ -1,6 +1,7 @@
 package ttfe.tests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertThrows;
 
@@ -97,8 +98,67 @@ public class SimpleTests {
 
 	@Test
 	public void testgetPoints(){
+
 		
-		
+	}
+
+	@Test
+	public void testgetPieceAt1(){
+		game.setPieceAt(0, 0, 2);
+		assertEquals("Piece at 0,0 should be 2",2,game.getPieceAt(0, 0));
+	}
+
+	@Test
+	public void testgetPieceAt2(){
+		assertThrows("Invalid coordinate: less than 0",IllegalArgumentException.class,()->{
+			game.getPieceAt(-1,-3);
+		});
+	}
+
+	@Test
+	public void testgetPieceAt3(){
+		assertThrows("Invalid coordinate: more than 4",IllegalArgumentException.class,()->{
+			game.getPieceAt(5, 5);
+		});
+	}
+
+	@Test
+	public void testsetPieceAt(){
+
+	}
+
+	@Test 
+    public void testisMovePossible1(){
+		assertThrows("Move direction cannot be null",IllegalArgumentException.class,()->{
+			game.isMovePossible(null);
+		});
+	}
+
+	@Test
+	public void testisMovePossible2(){
+
+	}
+
+	@Test
+	public void testisSpaceLeft1(){
+		assertTrue("space is left",game.isSpaceLeft());
+	}
+
+	@Test
+	public void testisSpaceLeft2(){
+		for(int i=0;i<4;i++){
+			for(int j=0;j<4;j++){
+				game.setPieceAt(i, j, 2);
+			}
+		}
+		assertFalse("no space left",game.isSpaceLeft());
+        
+		game.setPieceAt(2, 3, 0);
+		assertTrue("one space left",game.isSpaceLeft());
+
+		game.setPieceAt(2, 3, 2);
+		assertFalse("no space left",game.isSpaceLeft());
+
 	}
 
 
