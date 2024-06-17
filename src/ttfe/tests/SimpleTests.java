@@ -192,6 +192,11 @@ public class SimpleTests {
 		game.setPieceAt(3, 3, 0);
 		game.setPieceAt(0, 0, 2);
 		assertFalse("move cannot be performed",game.performMove(MoveDirection.NORTH));
+
+		game.setPieceAt(1, 0, 2);
+		game.setPieceAt(2, 0, 2);
+		assertTrue("move can be performed",game.performMove(MoveDirection.EAST));
+		
 	}
 
 }
