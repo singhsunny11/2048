@@ -139,8 +139,27 @@ public class SimpleTests {
 
 	@Test
 	public void testsetPieceAt(){
+		assertThrows("Invalid coordinates",IllegalArgumentException.class,()->{
+			game.setPieceAt(-1, 0, 2);
+		});
 
-	}
+		assertThrows("Invalid coordinates",IllegalArgumentException.class,()->{
+			game.setPieceAt(0, -1, 2);
+		});
+		
+		assertThrows("Invalid coordinates",IllegalArgumentException.class,()->{
+			game.setPieceAt(4, 4, 2);
+		});
+
+		game.setPieceAt(0, 0, 2);
+		assertEquals("tile at 0,0 should be 2",2,game.getPieceAt(0,0));
+
+		game.setPieceAt(0, 0, 4);
+		assertEquals("tile at 0,0 should be 4 as overriden",4,game.getPieceAt(0,0));
+
+		game.setPieceAt(0, 0, 0);
+		assertEquals("tile at 0,0 should be 0 as it is removes",0,game.getPieceAt(0,0));
+    }
 
 	@Test 
     public void testisMovePossible1(){
@@ -176,18 +195,17 @@ public class SimpleTests {
 				game.setPieceAt(i, j, 0);
 			}
 		}
-		game.setPieceAt(0, 0, 2);
-		game.setPieceAt(3, 0, 2);
+		game.setPieceAt(0, 0, 4);
+		game.setPieceAt(0, 2, 2);
+		game.setPieceAt(0, 3, 2);
 		assertTrue("move is possible",game.isMovePossible());
 		assertTrue("move is possible in east",game.isMovePossible(MoveDirection.EAST));
 		assertTrue("move is possible in south",game.isMovePossible(MoveDirection.SOUTH));
-		assertTrue("move is possible in west",game.isMovePossible(MoveDirection.WEST));
-		assertFalse("move is possible in north",game.isMovePossible(MoveDirection.NORTH));
-		if (game.performMove(MoveDirection.SOUTH))
-		{
-			assertTrue("move is possible",game.isMovePossible(MoveDirection.NORTH));
-		}
+		assertFalse("move is not possible in west",game.isMovePossible(MoveDirection.WEST));
+		assertTrue("move is possible in north",game.isMovePossible(MoveDirection.NORTH));
 	}
+
+
 
 	@Test 
 	public void testisMovePossibleFig2(){
@@ -215,10 +233,10 @@ public class SimpleTests {
 	public void testisMovePossibleEdgeCase(){
 		
 		int fig[][]={
-			{2,2,2,2},
-			{2,2,2,2},
-			{2,2,2,2},
-			{2,2,2,2}
+			{2,0,0,0},
+			{2,0,0,0},
+			{2,0,0,0},
+			{2,0,0,0}
 		};
 
 		for(int i=0;i<4;i++){
@@ -231,9 +249,13 @@ public class SimpleTests {
 		assertTrue("move is possible",game.isMovePossible(MoveDirection.NORTH));
 		assertTrue("move is possible",game.isMovePossible(MoveDirection.EAST));
 		assertTrue("move is possible",game.isMovePossible(MoveDirection.SOUTH));
-		assertTrue("move is possible",game.isMovePossible(MoveDirection.WEST));
+		assertFalse("move is not possible",game.isMovePossible(MoveDirection.WEST));
+
+	}
 
 
+    @Test
+	public void testisMovePossibleEdgeCase2(){
 		int figedge[][]={
 			{2,2,4,8},
 			{16,16,32,64},
@@ -253,27 +275,31 @@ public class SimpleTests {
 		assertFalse("no move possible in north",game.isMovePossible(MoveDirection.NORTH));
 		assertFalse("no move possible in south",game.isMovePossible(MoveDirection.SOUTH));
 
-
-		int figedge2[][]={
-				{2,4,8,16},
-				{2,4,8,16},
-				{32,64,128,256},
-				{32,64,128,256}
-		};
-		
-		for(int i=0;i<4;i++){
-			for(int j=0;j<4;j++){
-				game.setPieceAt(i, j, figedge2[i][j]);
-			}
-		}
-
-		assertTrue("move possible",game.isMovePossible());
-		assertFalse("no move possible in east",game.isMovePossible(MoveDirection.EAST));
-		assertFalse("no move possible in west",game.isMovePossible(MoveDirection.WEST));
-		assertTrue("move possible in north",game.isMovePossible(MoveDirection.NORTH));
-		assertTrue("move possible in south",game.isMovePossible(MoveDirection.SOUTH));
 	}
 
+	@Test	
+	public void testisMovePossibleEdgeCase3(){
+		int figedge2[][]={
+			{2,4,8,16},
+			{2,4,8,16},
+			{32,64,128,256},
+			{32,64,128,256}
+	};
+	
+	for(int i=0;i<4;i++){
+		for(int j=0;j<4;j++){
+			game.setPieceAt(i, j, figedge2[i][j]);
+		}
+	}
+
+	assertTrue("move possible",game.isMovePossible());
+	assertFalse("no move possible in east",game.isMovePossible(MoveDirection.EAST));
+	assertFalse("no move possible in west",game.isMovePossible(MoveDirection.WEST));
+	assertTrue("move possible in north",game.isMovePossible(MoveDirection.NORTH));
+	assertTrue("move possible in south",game.isMovePossible(MoveDirection.SOUTH));
+
+	}
+	
 	@Test
 	public void testisSpaceLeft1(){
 		assertTrue("space is left",game.isSpaceLeft());
