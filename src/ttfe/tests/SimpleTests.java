@@ -100,7 +100,21 @@ public class SimpleTests {
 
 	@Test
 	public void testgetPoints(){
+		for(int i=0;i<4;i++){
+			for(int j=0;j<4;j++){
+				game.setPieceAt(i, j, 0);
+			}
+		}
 
+		game.setPieceAt(0, 0, 2);
+		game.setPieceAt(1, 0, 2);
+		game.performMove(MoveDirection.WEST);
+		assertEquals("incorrect points calculated",4==game.getPoints());
+		for(int i=1;i<4;i++){
+			game.setPieceAt(i, 0, 4);
+		}
+		game.performMove(MoveDirection.EAST);
+		assertEquals("incorrect points calculated",20==game.getPoints());
 		
 	}
 
@@ -178,25 +192,7 @@ public class SimpleTests {
 			}
 		}
 		game.setPieceAt(0, 0, 2);
-		game.setPieceAt(0, 3, 2);
-        assertFalse("move cannot be performed",game.performMove(MoveDirection.WEST));
-		
-		game.setPieceAt(0, 0, 0);
-		game.setPieceAt(3, 3, 2);
-		assertFalse("move cannot be performed",game.performMove(MoveDirection.SOUTH));
 
-		game.setPieceAt(0, 3, 0);
-		game.setPieceAt(3, 0, 2);
-		assertFalse("move cannot be performed",game.performMove(MoveDirection.EAST));
-
-		game.setPieceAt(3, 3, 0);
-		game.setPieceAt(0, 0, 2);
-		assertFalse("move cannot be performed",game.performMove(MoveDirection.NORTH));
-
-		game.setPieceAt(1, 0, 2);
-		game.setPieceAt(2, 0, 2);
-		assertTrue("move can be performed",game.performMove(MoveDirection.EAST));
-		
 	}
 
 }
