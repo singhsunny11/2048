@@ -12,8 +12,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ttfe.MoveDirection;
+import ttfe.PlayerInterface;
 import ttfe.SimulatorInterface;
 import ttfe.TTFEFactory;
+import ttfe.UserInterface;
 
 /**
  * This class provides a very simple example of how to write tests for this project.
@@ -280,5 +282,22 @@ public class SimpleTests {
 		assertTrue("move is possible in north",game.performMove(MoveDirection.NORTH));
 
 	}
+	
+	@Test
+	public void testrun(){
+		assertThrows("Argument Exception",IllegalArgumentException.class,()->{
+			game.run(null, null);
+		});
+	}
+
+	@Test
+	public void testrun1(){
+		PlayerInterface player = TTFEFactory.createPlayer(false);
+		UserInterface ui = TTFEFactory.createUserInterface(game);
+		game.run(player, ui);
+		assertFalse("no moves are possible after run finishes",game.isMovePossible());
+	}
+
+
 
 }
