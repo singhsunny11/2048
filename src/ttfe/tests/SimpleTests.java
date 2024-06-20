@@ -44,9 +44,16 @@ public class SimpleTests {
 	}
 
 	@Test
-	public void testConstructorDimensions(){
+	public void testConstructorDimensions1(){
 		assertThrows(IllegalArgumentException.class,()->{
-			TTFEFactory.createSimulator(1,1, new Random(0));
+			TTFEFactory.createSimulator(1,4, new Random(0));
+		});
+	}
+
+	@Test
+	public void testConstructorDimensions2(){
+		assertThrows(IllegalArgumentException.class,()->{
+			TTFEFactory.createSimulator(4,1, new Random(0));
 		});
 	}
 
