@@ -211,7 +211,7 @@ public class SimulatorImplementation implements SimulatorInterface{
         case WEST:
         for(int j=0;j<height;j++){
             for(int i=1;i<width;i++){
-                if(board[i][j]!=0){
+                if(board[j][i]!=0){
                     int pos =i;
                     while(pos>0 && board[j][pos-1]==0){
                         pos--;
