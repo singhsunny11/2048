@@ -98,7 +98,7 @@ public class SimulatorImplementation implements SimulatorInterface{
             case NORTH:
             for(int i=0;i<width;i++){
                 for(int j=1;j<height;j++){
-                    if(board[i][j] != 0 && (board[i][j-1]==0 || board[i][j-1]==board[i][j])){
+                    if(board[j][i] != 0 && (board[j-1][i]==0 || board[j-1][i]==board[j][i])){
                         return true;
                     }
                 }
@@ -108,7 +108,7 @@ public class SimulatorImplementation implements SimulatorInterface{
             case SOUTH:
             for(int i=0;i<width;i++){
                 for(int j=0;j<height-1;j++){
-                    if(board[i][j] != 0 && (board[i][j+1]==0 || board[i][j+1]==board[i][j])){
+                    if(board[j][i] != 0 && (board[j+1][i]==0 || board[j+1][i]==board[j][i])){
                         return true;
                     }
                 }
@@ -118,7 +118,7 @@ public class SimulatorImplementation implements SimulatorInterface{
             case WEST:
             for(int i=1;i<width;i++){
                 for(int j=0;j<height;j++){
-                    if(board[i][j] != 0 && (board[i-1][j]==0 || board[i-1][j]==board[i][j])){
+                    if(board[j][i] != 0 && (board[j][i-1]==0 || board[j][i-1]==board[j][i])){
                         return true;
                     }
                 }
@@ -128,7 +128,7 @@ public class SimulatorImplementation implements SimulatorInterface{
             case EAST:
             for(int i=0;i<width-1;i++){
                 for(int j=0;j<height;j++){
-                    if(board[i][j] != 0 && (board[i+1][j]==0 || board[i+1][j]==board[i][j])){
+                    if(board[j][i] != 0 && (board[j][i+1]==0 || board[j][i+1]==board[j][i])){
                         return true;
                     }
                 }
