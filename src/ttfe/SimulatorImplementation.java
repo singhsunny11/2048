@@ -160,21 +160,21 @@ public class SimulatorImplementation implements SimulatorInterface{
         case NORTH:
         for(int i=0;i<width;i++){
             for(int j=1;j<height;j++){
-                if(board[i][j]!=0){
+                if(board[j][i]!=0){
                     int pos=j;
-                    while(pos>0 && board[i][pos-1]==0){
+                    while(pos>0 && board[pos-1][i]==0){
                     pos--;
                     }
                 
-                    if(pos>0 && board[i][pos-1]==board[i][j]){
-                        board[i][pos-1] *= 2;
-                        points += board[i][pos-1];
-                        board[i][j]=0;
+                    if(pos>0 && board[pos-1][i]==board[j][i]){
+                        board[pos-1][i] *= 2;
+                        points += board[pos-1][i];
+                        board[j][i]=0;
                         moveperformed=true;
                     }
                     else if(pos!=j){
-                        board[i][pos]=board[i][j];
-                        board[i][j]=0;
+                        board[pos][i]=board[j][i];
+                        board[j][i]=0;
                         moveperformed=true;
                     }
                 }
@@ -185,20 +185,20 @@ public class SimulatorImplementation implements SimulatorInterface{
         case SOUTH:
         for(int i=0;i<width;i++){
             for(int j=height-2;j>=0;j--){
-                if(board[i][j]!=0){
+                if(board[j][i]!=0){
                     int pos=j;
-                    while(pos<height-1 && board[i][pos+1]==0){
+                    while(pos<height-1 && board[pos+1][i]==0){
                         pos++;
                     }
-                    if(pos<height-1 && board[i][pos+1]==board[i][j]){
-                        board[i][pos+1] *= 2;
-                        points += board[i][pos+1];
-                        board[i][j]=0;
+                    if(pos<height-1 && board[pos+1][i]==board[j][i]){
+                        board[pos+1][i] *= 2;
+                        points += board[pos+1][i];
+                        board[j][i]=0;
                         moveperformed=true;
                     }
                     else if(pos!=j){
-                        board[i][pos]=board[i][j];
-                        board[i][j]=0;
+                        board[pos][i]=board[j][i];
+                        board[j][i]=0;
                         moveperformed=true;
                     }
                 }
