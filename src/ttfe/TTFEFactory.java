@@ -18,8 +18,12 @@ public class TTFEFactory {
 	 */
 	public static SimulatorInterface createSimulator(int width, int height,
 			Random r) {
+        if(width < 2 || height < 2 || r == null){
+			throw new IllegalArgumentException("invalid dimensions or random number generator");
+		}
+
 		// TODO: Implement me. Return a simulator instance.
-		return null;
+		return new SimulatorImplementation(width,height,r);
 	}
 
 	/**
