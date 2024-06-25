@@ -59,7 +59,7 @@ public class SimulatorImplementation implements SimulatorInterface{
 
     @Override
     public int getNumPieces() {
-        int numPieces =0;
+       int numPieces =0;
        for(int i=0;i<width;i++){
         for (int j=0;j<height;j++){
             if(board[i][j] != 0){
@@ -75,7 +75,7 @@ public class SimulatorImplementation implements SimulatorInterface{
        if (x<0 || x>=width || y<0 || y>=height){
         throw new IllegalArgumentException("Invalid coordinates");
        }
-       return board[x][y];
+       return board[y][x];
     }
 
     @Override
@@ -212,19 +212,19 @@ public class SimulatorImplementation implements SimulatorInterface{
         for(int j=0;j<height;j++){
             for(int i=1;i<width;i++){
                 if(board[i][j]!=0){
-                    int pos =0;
-                    while(pos>0 && board[pos][j]==0){
+                    int pos =i;
+                    while(pos>0 && board[j][pos-1]==0){
                         pos--;
                     }
-                    if(pos>0 && board[pos-1][j]==board[i][j]){
-                        board[pos-1][j] *= 2;
-                        points += board[pos-1][j] ;
-                        board[i][j] =0;
+                    if(pos>0 && board[j][pos-1]==board[j][i]){
+                        board[j][pos-1] *= 2;
+                        points += board[j][pos-1] ;
+                        board[j][i] =0;
                         moveperformed = true;
                     }
-                    else if(pos!=0){
-                        board[pos][j] = board[i][j];
-                        board[i][j]=0;
+                    else if(pos!=i){
+                        board[j][pos] = board[j][i];
+                        board[j][i]=0;
                         moveperformed = true;
                     }
                 }
@@ -235,20 +235,20 @@ public class SimulatorImplementation implements SimulatorInterface{
         case EAST:
         for(int j=0;j<height;j++){
             for(int i=width-2;i>=0;i--){
-                if(board[i][j] !=0){
-                    int pos=0;
-                    while(pos<width-1 && board[pos+1][j]==0){
+                if(board[j][i] !=0){
+                    int pos=i;
+                    while(pos<width-1 && board[j][pos+1]==0){
                         pos++;
                     }
-                    if(pos<width-1 && board[pos+1][j]==board[i][j]){
-                        board[pos+1][j] *= 2;
-                        points += board[pos+1][j];
-                        board[i][j] =0;
+                    if(pos<width-1 && board[j][pos+1]==board[j][i]){
+                        board[j][pos+1] *= 2;
+                        points += board[j][pos+1];
+                        board[j][i] =0;
                         moveperformed = true;
                     }
                     else if(pos!=i){
-                        board[pos][j] = board[i][j];
-                        board[i][j] = 0;
+                        board[j][pos] = board[j][i];
+                        board[j][i] = 0;
                         moveperformed = true;
                     }
                 }
