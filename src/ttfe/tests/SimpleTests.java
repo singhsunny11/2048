@@ -127,6 +127,21 @@ public class SimpleTests {
 	}
 
 	@Test
+	public void testPoints1(){
+		for(int i=0;i<4;i++){
+			for(int j=0;j<4;j++){
+				game.setPieceAt(i, j, 2);
+			}
+		}
+		game.performMove(MoveDirection.EAST);
+		assertTrue("incorrect points calculated",32==game.getPoints());
+		game.performMove(MoveDirection.WEST);
+		assertTrue("incorrect points calculated",64==game.getPoints());
+
+	}
+
+
+	@Test
 	public void testgetPieceAt1(){
 		game.setPieceAt(0, 0, 2);
 		assertEquals("Piece at 0,0 should be 2",2,game.getPieceAt(0, 0));
