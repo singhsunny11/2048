@@ -285,6 +285,8 @@ public class SimulatorImplementation implements SimulatorInterface{
         while(isMovePossible()){
             ui.updateScreen(this);
             MoveDirection direction = player.getPlayerMove(this, ui);
+            addPiece();
+
             if(performMove(direction)){
                 ui.updateScreen(this);
             }
