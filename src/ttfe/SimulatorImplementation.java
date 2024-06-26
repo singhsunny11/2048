@@ -281,7 +281,9 @@ public class SimulatorImplementation implements SimulatorInterface{
 
     @Override
     public void run(PlayerInterface player, UserInterface ui) {
-       if(player!=null && ui!=null){
+       if(player == null || ui == null){
+        throw new IllegalArgumentException("Player or ui cant be null");
+       }
         ui.updateScreen(this);
         while(isMovePossible()){
             MoveDirection direction = player.getPlayerMove(this, ui);
@@ -289,7 +291,6 @@ public class SimulatorImplementation implements SimulatorInterface{
             boolean perform = performMove(direction);
             if(perform)
            { 
-           // this.numPieces = getNumPieces();
             addPiece(); 
             ui.updateScreen(this);
            }
@@ -297,10 +298,7 @@ public class SimulatorImplementation implements SimulatorInterface{
         }
         ui.updateScreen(this);
         ui.showGameOverScreen(this);
-       }else{
-            throw new IllegalArgumentException("Player or ui cant be null");
-            }
-            }
+        }
         
 
     @Override
