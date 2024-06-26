@@ -22,9 +22,15 @@ public class SimulatorImplementation implements SimulatorInterface{
         this.numMoves=0;
         this.points=0;
         this.r=r;
+      // setPieceAt(0,0,2);
+       //setPieceAt(0, 1, 2);
+      // setPieceAt(0, 2, 2);
+      // setPieceAt(0, 3, 2);
+       
+       
 
-        addPiece();
-        addPiece();
+       addPiece();
+       addPiece();
     }
 
 
@@ -37,9 +43,9 @@ public class SimulatorImplementation implements SimulatorInterface{
         do{
             x=r.nextInt(width);
             y=r.nextInt(height);
-        }while(board[x][y]!=0);
+        }while(board[y][x]!=0);
 
-        board[x][y]=r.nextDouble() < 0.9 ? 2 : 4;
+        board[y][x]=r.nextDouble() < 0.9 ? 2 : 4;
     }
 
     @Override
@@ -266,7 +272,7 @@ public class SimulatorImplementation implements SimulatorInterface{
       }
       if(moveperformed){
         numMoves++;
-        addPiece();
+      //  addPiece();
     }
     return moveperformed;
     }

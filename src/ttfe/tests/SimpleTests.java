@@ -106,7 +106,21 @@ public class SimpleTests {
 		game.addPiece();
 		assertEquals("no. of pieces incorrect",3,game.getNumPieces());
 	}
+    @Test
+	public void testNPieces(){
+		for(int i=0;i<4;i++){
+			for(int j=0;j<4;j++){
+				game.setPieceAt(i, j, 0);
+			}
+		}
+		game.setPieceAt(0, 0, 4);
+		game.setPieceAt(1, 1, 4);
+		game.setPieceAt(2, 2, 4);
+		game.setPieceAt(3, 3, 4);
 
+		assertEquals("no. of pieces incorrect",4,game.getNumPieces());
+	}
+	
 	@Test
 	public void testgetPoints(){
 		for(int i=0;i<4;i++){
