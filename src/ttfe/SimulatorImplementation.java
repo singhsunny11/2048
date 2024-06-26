@@ -11,6 +11,7 @@ public class SimulatorImplementation implements SimulatorInterface{
     private int numMoves;
     private int points;
     private Random r;
+   // private int numPieces;
 
     public SimulatorImplementation(int width, int height, Random r){
         if(width < 2 || height < 2 || r == null){
@@ -22,6 +23,7 @@ public class SimulatorImplementation implements SimulatorInterface{
         this.numMoves=0;
         this.points=0;
         this.r=r;
+      //  this.numPieces=0;
       // setPieceAt(0,0,2);
        //setPieceAt(0, 1, 2);
       // setPieceAt(0, 2, 2);
@@ -43,9 +45,9 @@ public class SimulatorImplementation implements SimulatorInterface{
         do{
             x=r.nextInt(width);
             y=r.nextInt(height);
-        }while(board[y][x]!=0);
+        }while(board[x][y]!=0);
 
-        board[y][x]=r.nextDouble() < 0.9 ? 2 : 4;
+        board[x][y]=r.nextDouble() < 0.9 ? 2 : 4;
     }
 
     @Override
@@ -65,7 +67,7 @@ public class SimulatorImplementation implements SimulatorInterface{
 
     @Override
     public int getNumPieces() {
-       int numPieces =0;
+      int numPieces =0;
        for(int i=0;i<width;i++){
         for (int j=0;j<height;j++){
             if(board[j][i] != 0){
@@ -279,19 +281,27 @@ public class SimulatorImplementation implements SimulatorInterface{
 
     @Override
     public void run(PlayerInterface player, UserInterface ui) {
-        if (player==null || ui == null){
-            throw new IllegalArgumentException("Player or ui cant be null");
-        }
+       if(player!=null && ui!=null){
+        ui.updateScreen(this);
         while(isMovePossible()){
-            ui.updateScreen(this);
             MoveDirection direction = player.getPlayerMove(this, ui);
-            if(performMove(direction)){
-                ui.updateScreen(this);
-                addPiece();
-            }
+            if(isMovePossible(direction)){
+            boolean perform = performMove(direction);
+            if(perform)
+           { 
+           // this.numPieces = getNumPieces();
+            addPiece(); 
+            ui.updateScreen(this);
+           }
         }
+        }
+        ui.updateScreen(this);
         ui.showGameOverScreen(this);
-    }
+       }else{
+            throw new IllegalArgumentException("Player or ui cant be null");
+            }
+            }
+        
 
     @Override
     public void setPieceAt(int x, int y, int piece) {
