@@ -134,9 +134,27 @@ public class SimpleTests {
 			}
 		}
 		game.performMove(MoveDirection.EAST);
+		assertTrue("incorrect",0==game.getPieceAt(0, 0) );
+		assertTrue("incorrect",0==game.getPieceAt(1, 0) );
+		assertTrue("incorrect",4==game.getPieceAt(2, 0) );
+
 		assertTrue("incorrect points calculated",32==game.getPoints());
 		game.performMove(MoveDirection.WEST);
 		assertTrue("incorrect points calculated",64==game.getPoints());
+
+	}
+
+	@Test
+	public void testPoints4(){
+		for(int i=0;i<4;i++){
+			for (int j=0;j<4;j++){
+				game.setPieceAt(i, j, 0);
+			}
+		}
+		game.setPieceAt(3, 0, 8);
+		game.setPieceAt(3, 1, 8);
+		game.performMove(MoveDirection.SOUTH);
+		assertTrue("incorrect",16==game.getPieceAt(3, 3));
 
 	}
 
@@ -165,9 +183,13 @@ public class SimpleTests {
 
 		game.performMove(MoveDirection.EAST);
 		assertTrue("incorrect",8==game.getPieceAt(3,0));
+		assertTrue("incorrect",8==game.getPieceAt(3,1));
+		game.setPieceAt(3, 2, 0);
+		game.setPieceAt(3, 3, 0);
+
+
 		game.performMove(MoveDirection.SOUTH);
 		assertTrue("incorrect",16==game.getPieceAt(3,3));
-
 
 	}
 
@@ -349,7 +371,6 @@ public class SimpleTests {
 		game.run(player, ui);
 		assertFalse("no moves are possible after run finishes",game.isMovePossible());
 	}
-
 
 
 }
