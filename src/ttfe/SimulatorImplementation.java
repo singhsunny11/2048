@@ -159,17 +159,20 @@ public class SimulatorImplementation implements SimulatorInterface{
       switch (direction) {
         case NORTH:
         for(int i=0;i<width;i++){
+            boolean[] combined = new boolean[height];
             for(int j=1;j<height;j++){
                 if(board[j][i]!=0){
                     int pos=j;
-                    while(pos>0 && board[pos-1][i]==0){
+                   // pos--;
+                    while(pos>0 && board[pos-1][i]==0 ){
                     pos--;
-                    }
+                   }
                 
-                    if(pos>0 && board[pos-1][i]==board[j][i]){
+                    if(pos>0 && board[pos-1][i]==board[j][i] && !combined[pos-1]){
                         board[pos-1][i] *= 2;
                         points += board[pos-1][i];
                         board[j][i]=0;
+                        combined[pos-1] = true;
                         moveperformed=true;
                     }
                     else if(pos!=j){
@@ -181,19 +184,20 @@ public class SimulatorImplementation implements SimulatorInterface{
             }
         }     
             break;
-
         case SOUTH:
         for(int i=0;i<width;i++){
+            boolean[] combined = new boolean[height];
             for(int j=height-2;j>=0;j--){
                 if(board[j][i]!=0){
                     int pos=j;
                     while(pos<height-1 && board[pos+1][i]==0){
                         pos++;
                     }
-                    if(pos<height-1 && board[pos+1][i]==board[j][i]){
+                    if(pos<height-1 && board[pos+1][i]==board[j][i] && !combined[pos+1]){
                         board[pos+1][i] *= 2;
                         points += board[pos+1][i];
                         board[j][i]=0;
+                        combined[pos+1]=true;
                         moveperformed=true;
                     }
                     else if(pos!=j){
@@ -210,16 +214,18 @@ public class SimulatorImplementation implements SimulatorInterface{
 
         case WEST:
         for(int j=0;j<height;j++){
+            boolean[] combined =  new boolean[width];
             for(int i=1;i<width;i++){
                 if(board[j][i]!=0){
                     int pos =i;
                     while(pos>0 && board[j][pos-1]==0){
                         pos--;
                     }
-                    if(pos>0 && board[j][pos-1]==board[j][i]){
+                    if(pos>0 && board[j][pos-1]==board[j][i] && !combined[pos-1]){
                         board[j][pos-1] *= 2;
                         points += board[j][pos-1] ;
                         board[j][i] =0;
+                        combined[pos-1]=true;
                         moveperformed = true;
                     }
                     else if(pos!=i){
@@ -234,16 +240,18 @@ public class SimulatorImplementation implements SimulatorInterface{
 
         case EAST:
         for(int j=0;j<height;j++){
+            boolean[] combined = new boolean[width];
             for(int i=width-2;i>=0;i--){
                 if(board[j][i] !=0){
                     int pos=i;
                     while(pos<width-1 && board[j][pos+1]==0){
                         pos++;
                     }
-                    if(pos<width-1 && board[j][pos+1]==board[j][i]){
+                    if(pos<width-1 && board[j][pos+1]==board[j][i] && !combined[pos+1]){
                         board[j][pos+1] *= 2;
                         points += board[j][pos+1];
                         board[j][i] =0;
+                        combined[pos+1]=true;
                         moveperformed = true;
                     }
                     else if(pos!=i){

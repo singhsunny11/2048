@@ -140,7 +140,6 @@ public class SimpleTests {
 
 	}
 
-
 	@Test
 	public void testgetPieceAt1(){
 		game.setPieceAt(0, 0, 2);
