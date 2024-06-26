@@ -142,7 +142,7 @@ public class SimulatorImplementation implements SimulatorInterface{
     public boolean isSpaceLeft() {
         for(int i=0;i<width;i++){
             for(int j=0;j<height;j++){
-                if(board[i][j]==0){
+                if(board[j][i]==0){
                     return true;
                 }
             }
