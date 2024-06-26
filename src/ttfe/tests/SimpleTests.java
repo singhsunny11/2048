@@ -141,6 +141,37 @@ public class SimpleTests {
 	}
 
 	@Test
+	public void testPoints2(){
+		for(int i=0;i<4;i++){
+			for (int j=0;j<4;j++){
+				game.setPieceAt(i, j, 0);
+			}
+		}
+		game.setPieceAt(0, 0, 4);
+		game.setPieceAt(0, 1, 2);
+		game.setPieceAt(0, 2, 2);
+		game.setPieceAt(0, 3, 0);
+		game.setPieceAt(1, 0, 4);
+		game.setPieceAt(1, 1, 2);
+		game.setPieceAt(1, 2, 2);
+		game.setPieceAt(1, 3, 0);
+		game.performMove(MoveDirection.NORTH);
+		assertTrue("incorrect",4==game.getPieceAt(0,0));
+		assertTrue("incorrect",4==game.getPieceAt(0,1));
+		assertTrue("incorrect",0==game.getPieceAt(0,2));
+		assertTrue("incorrect",0==game.getPieceAt(0,3));
+		assertTrue("incorrect",4==game.getPieceAt(1,0));
+		assertTrue("incorrect",4==game.getPieceAt(1,1));
+
+		game.performMove(MoveDirection.EAST);
+		assertTrue("incorrect",8==game.getPieceAt(3,0));
+		game.performMove(MoveDirection.SOUTH);
+		assertTrue("incorrect",16==game.getPieceAt(3,3));
+
+
+	}
+
+	@Test
 	public void testgetPieceAt1(){
 		game.setPieceAt(0, 0, 2);
 		assertEquals("Piece at 0,0 should be 2",2,game.getPieceAt(0, 0));
